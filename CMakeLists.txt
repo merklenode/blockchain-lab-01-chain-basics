@@ -4,11 +4,16 @@ project(SimpleBlockchain)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCES
-    src/block.cpp
-    src/blockchain.cpp
+    src/core/block.cpp
+    src/core/blockchain.cpp
 )
 
 add_executable(SimpleBlockchain
     ${SOURCES}
-    src/main.cpp
+    src/app/main.cpp
+)
+
+target_include_directories(SimpleBlockchain PRIVATE
+    src/core
+    src/crypto
 )

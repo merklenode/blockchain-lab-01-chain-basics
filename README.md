@@ -15,6 +15,9 @@ The web app now uses a native TypeScript blockchain core, so it can run in Next.
 ```text
 .
 ├── src/                         # C++ native/reference implementation
+│   ├── app/                     # CLI entry point
+│   ├── core/                    # Block and Blockchain classes
+│   └── crypto/                  # SHA-256 hashing utility
 ├── nextjs-blockchain/
 │   ├── app/                     # Next.js route files
 │   └── src/
