@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/SimpleBlockchain.dir/src/main.cpp.o CMakeFiles/SimpleBlockchain.dir/src/block.cpp.o CMakeFiles/SimpleBlockchain.dir/src/blockchain.cpp.o CMakeFiles/SimpleBlockchain.dir/src/sha256.cpp.o -o SimpleBlockchain  /usr/lib/x86_64-linux-gnu/libcrypto.so 

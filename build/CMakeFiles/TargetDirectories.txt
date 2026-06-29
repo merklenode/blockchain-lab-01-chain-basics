@@ -1,3 +1,0 @@
-/home/merklenode/Desktop/desk2.0/Simple Blockchain Prototype/build/CMakeFiles/SimpleBlockchain.dir
-/home/merklenode/Desktop/desk2.0/Simple Blockchain Prototype/build/CMakeFiles/edit_cache.dir
-/home/merklenode/Desktop/desk2.0/Simple Blockchain Prototype/build/CMakeFiles/rebuild_cache.dir

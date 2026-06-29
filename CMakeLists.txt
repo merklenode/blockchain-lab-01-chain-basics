@@ -3,16 +3,12 @@ project(SimpleBlockchain)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Specify the path to OpenSSL (for SHA-256 hashing)
-find_package(OpenSSL REQUIRED)
-
-# Add source files
-add_executable(SimpleBlockchain 
-    src/main.cpp
+set(SOURCES
     src/block.cpp
     src/blockchain.cpp
-    src/sha256.cpp
 )
 
-# Link OpenSSL library
-target_link_libraries(SimpleBlockchain OpenSSL::Crypto)
+add_executable(SimpleBlockchain
+    ${SOURCES}
+    src/main.cpp
+)

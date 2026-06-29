@@ -12,6 +12,9 @@ public:
     std::string calculateHash() const;
     std::string getHash() const;
     std::string getPrevHash() const;
+    std::string getData() const;
+    int getIndex() const;
+    std::time_t getTimestamp() const;
 
 private:
     int index;

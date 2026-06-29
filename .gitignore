@@ -1,0 +1,5 @@
+build/
+build_wasm/
+nextjs-blockchain/.next/
+nextjs-blockchain/node_modules/
+nextjs-blockchain/tsconfig.tsbuildinfo

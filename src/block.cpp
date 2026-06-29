@@ -22,3 +22,15 @@ std::string Block::getHash() const {
 std::string Block::getPrevHash() const {
     return prevHash;
 }
+
+std::string Block::getData() const {
+    return data;
+}
+
+int Block::getIndex() const {
+    return index;
+}
+
+std::time_t Block::getTimestamp() const {
+    return timestamp;
+}

@@ -10,6 +10,8 @@ public:
 
     void addBlock(const std::string& data);
     void printChain() const;
+    bool isValid() const;
+    const std::vector<Block>& getChain() const;
 
 private:
     std::vector<Block> chain;
