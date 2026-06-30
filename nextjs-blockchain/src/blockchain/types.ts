@@ -1,6 +1,7 @@
 export type BlockData = string;
 
 export interface BlockSnapshot {
+  readonly id: string;
   readonly index: number;
   readonly data: BlockData;
   readonly hash: string;

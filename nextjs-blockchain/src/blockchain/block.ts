@@ -2,6 +2,7 @@ import { sha256Hex } from "./hash";
 import type { BlockData, BlockSnapshot } from "./types";
 
 export class Block implements BlockSnapshot {
+  readonly id: string;
   readonly index: number;
   readonly data: BlockData;
   readonly hash: string;
@@ -9,6 +10,7 @@ export class Block implements BlockSnapshot {
   readonly timestamp: number;
 
   private constructor(snapshot: BlockSnapshot) {
+    this.id = snapshot.id;
     this.index = snapshot.index;
     this.data = snapshot.data;
     this.hash = snapshot.hash;
@@ -22,24 +24,28 @@ export class Block implements BlockSnapshot {
     previousHash: string,
     timestamp = Math.floor(Date.now() / 1000),
   ): Promise<Block> {
+    const id = crypto.randomUUID();
     const hash = await Block.calculateHash({
+      id,
       index,
       data,
       previousHash,
       timestamp,
     });
 
-    return new Block({ index, data, previousHash, timestamp, hash });
+    return new Block({ id, index, data, previousHash, timestamp, hash });
   }
 
+  // id is intentionally excluded from the hash preimage — it must survive repair()
   static async calculateHash(block: Omit<BlockSnapshot, "hash">): Promise<string> {
     return sha256Hex(
-      `${block.index}${block.timestamp}${block.data}${block.previousHash}`,
+      `${block.index}|${block.timestamp}|${block.data}|${block.previousHash}`,
     );
   }
 
   toJSON(): BlockSnapshot {
     return {
+      id: this.id,
       index: this.index,
       data: this.data,
       hash: this.hash,
