@@ -155,19 +155,17 @@ export default function BlockchainVisualizer() {
     setTamperIndex(null);
     setTamperInput("");
     setError(null);
-    addToTimeline("Chain reset to genesis.");
   }
 
-  function handleTamperConfirm(blockIndex: number) {
+  async function handleTamperConfirm(blockIndex: number) {
     if (!blockchain || !tamperInput.trim()) return;
     const newData = tamperInput.trim();
     blockchain.tamper(blockIndex, newData);
-    void syncChain(blockchain).then(() => {
-      addToTimeline(`Tampered block #${blockIndex} with "${newData}".`);
-    });
     setTamperIndex(null);
     setTamperInput("");
     setValidationMessage(null);
+    await syncChain(blockchain);
+    addToTimeline(`Tampered block #${blockIndex} with "${newData}".`);
   }
 
   async function handleRepair(fromIndex: number) {
@@ -216,10 +214,8 @@ export default function BlockchainVisualizer() {
                 <p className="mt-1 font-mono text-sm font-semibold">{chainSizeLabel}</p>
               </div>
 
-              {/* Integrity badge — aria-live so changes are announced */}
+              {/* Integrity badge */}
               <div
-                aria-live="polite"
-                aria-atomic="true"
                 className="rounded-md border border-[#d9dee7] bg-[#f9fafb] px-4 py-3"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#697789]">
@@ -366,7 +362,7 @@ export default function BlockchainVisualizer() {
                         Block #{block.index}
                         {isBroken && (
                           <span className="ml-2 font-mono text-xs text-[#ef4444]">
-                            ✗ tampered
+                            ✗ broken
                           </span>
                         )}
                       </p>
