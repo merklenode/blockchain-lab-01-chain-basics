@@ -1,61 +1,55 @@
-# Simple Blockchain Prototype
+# Next.js Blockchain Visualizer
 
-This project demonstrates how blocks are linked together and how SHA-256 hashing protects ledger integrity.
+Interactive blockchain lab built with a native TypeScript core. No WebAssembly or external crypto libraries required.
 
-The web app now uses a native TypeScript blockchain core, so it can run in Next.js without compiling the C++ code to WebAssembly. The original C++ implementation remains in `/src` as a native/reference implementation.
-
-## Features
-
-- **TypeScript core for the web app**: Reusable block, blockchain, hashing, and validation modules under `nextjs-blockchain/src/blockchain`.
-- **Next.js UI**: Interactive ledger visualizer under `nextjs-blockchain/app`.
-- **C++ reference implementation**: Native CLI implementation under `/src`.
-
-## Project Structure
+## Structure
 
 ```text
-.
-├── src/                         # C++ native/reference implementation
-│   ├── app/                     # CLI entry point
-│   ├── core/                    # Block and Blockchain classes
-│   └── crypto/                  # SHA-256 hashing utility
-├── nextjs-blockchain/
-│   ├── app/                     # Next.js route files
-│   └── src/
-│       ├── blockchain/          # TypeScript blockchain domain logic
-│       └── components/          # Reusable React components
-├── CMakeLists.txt               # Native C++ build configuration
-└── README.md
+app/
+  layout.tsx
+  page.tsx
+src/
+  blockchain/
+    block.ts
+    blockchain.ts
+    hash.ts
+    index.ts
+    types.ts
+  components/
+    BlockchainVisualizer.tsx
+e2e/
+  main-flow.spec.ts
 ```
 
----
-
-## 1. Native Build (CLI)
-To run the blockchain as a local CLI application:
+## Run
 
 ```bash
-mkdir build && cd build
-cmake ..
-make
-./SimpleBlockchain
+pnpm install
+pnpm dev
 ```
 
----
+Open `http://localhost:3000`.
 
-## 2. Next.js Build (Web)
+## Build
 
 ```bash
-cd nextjs-blockchain
-npm install
-npm run dev
+pnpm build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Test
 
----
+```bash
+pnpm test          # Vitest unit tests
+pnpm test:watch    # Vitest in watch mode
+pnpm test:e2e      # Playwright end-to-end tests (requires dev server on :3000)
+```
 
-## How It Works
+## Lab controls
 
-1. **Genesis Block**: The chain starts with an initial block (Index 0).
-2. **Mining**: When you "Mine Block", the data is added through the TypeScript blockchain core.
-3. **Hashing**: Each block's hash is calculated using `Index + Timestamp + Data + PreviousHash`.
-4. **Validation**: The TypeScript `validate()` method iterates through the chain to ensure no data has been tampered with.
+- **Mine Block** — add a transaction to the chain
+- **Validate Chain** — explicitly verify integrity; shows exact failure location
+- **Tamper** (per block) — corrupt a block's data, leaving the hash stale
+- **Repair chain from block #N** — recalculate hashes in cascade from the broken point
+- **Reset Chain** — return to genesis only
+- **Speed** — control block entrance animation speed (Instant / Normal / Slow)
+- Click any block to open the inspector panel with full hash details and stable ID
